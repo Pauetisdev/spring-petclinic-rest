@@ -192,7 +192,7 @@ This API is built following some [API First approach principles](https://swagger
 It is specified through the [OpenAPI](https://oai.github.io/Documentation/).
 It is specified in this [file](./src/main/resources/openapi.yml).
 
-Some of the required classes are generated during the build time. 
+Some of the required classes are generated during the build time.
 Here are the generated file types:
 * DTOs
 * API template interfaces specifying methods to override in the controllers
