@@ -111,7 +111,7 @@ Petclinic supports the following databases:
 - **H2 (Default, In-Memory)**
 - **HSQLDB (Alternative In-Memory Option)**
 - **MySQL (Persistent)**
-- **PostgreSQL (Persistent)**
+- **PostgreSQL  (Persistent)**
 
 ### **Switching Databases**
 
