@@ -8,7 +8,7 @@
 This backend version of Spring Petclinic application only provides a REST API. **There is no UI**.
 The [spring-petclinic-angular project](https://github.com/spring-petclinic/spring-petclinic-angular) is a Angular front-end application which consumes the REST API.
 
-## Understanding the Spring Petclinic application with a few diagrams.
+## Understanding the Spring Petclinic application with a few diagrams. 
 
 [See the presentation of the Spring Petclinic Framework version](http://fr.slideshare.net/AntoineRey/spring-framework-petclinic-sample-application)
 
