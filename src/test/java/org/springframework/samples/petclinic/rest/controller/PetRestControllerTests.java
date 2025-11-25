@@ -219,4 +219,54 @@ class PetRestControllerTests {
             .andExpect(status().isNotFound());
     }
 
+    // --- 3 TESTS NOUS PER A LA PRÀCTICA SONARQUBE (FASE 3) ---
+
+// TEST 1: Intentar BUSCAR una mascota que NO EXISTEIX (Fem servir 999 en lloc de -1)
+    @Test
+    @WithMockUser(roles = "OWNER_ADMIN")
+    void testGetPetNotFound_NewTest() throws Exception {
+        // Simulem que si cerquem la ID 999, el servei torna null
+        given(this.clinicService.findPetById(999)).willReturn(null);
+
+        // Executem la petició GET i esperem un error 404
+        this.mockMvc.perform(get("/api/pets/999")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound());
+    }
+
+    // TEST 2: Intentar ACTUALITZAR una mascota que no existeix
+    // Valida que no es poden modificar dades si la ID no es troba a la BBDD.
+    @Test
+    @WithMockUser(roles = "OWNER_ADMIN")
+    void testUpdatePetNotFound_New() throws Exception {
+        PetDto petDto = pets.get(0); // Agafem dades vàlides d'exemple
+        petDto.setName("Ghost Pet");
+        
+        // Simulem que la mascota 9999 no existeix
+        given(this.clinicService.findPetById(9999)).willReturn(null);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        String petJson = mapper.writeValueAsString(petDto);
+
+        this.mockMvc.perform(put("/api/pets/9999")
+                .content(petJson)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isNotFound());
+    }
+
+    // TEST 3: Intentar ESBORRAR una mascota que NO EXISTEIX
+    // Assegura que l'operació de borrat és segura davant d'IDs no existents.
+    @Test
+    @WithMockUser(roles = "OWNER_ADMIN")
+    void testDeletePetNotFound_NewTest() throws Exception {
+        given(this.clinicService.findPetById(999)).willReturn(null);
+        this.mockMvc.perform(delete("/api/pets/999")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound());
+    }
+
 }
+
